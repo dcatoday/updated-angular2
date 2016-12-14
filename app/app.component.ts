@@ -73,26 +73,22 @@ export class Hero {
   <h1>{{title}}</h1>
   <h2>My Heroes</h2>
   <ul class="heroes">
-    <li *ngFor="let hero of heroes">
+    <li *ngFor="let hero of heroes" 
+      (click)="onSelect(hero)"
+      [class.selected]="hero === selectedHero">
       <span class="badge">{{hero.id}}</span> {{hero.name}}
     </li>
   </ul>
-  <h2>{{hero.name}} details!</h2>
-  <div>
-    <label>id: </label>
-    {{hero.id}}
-  </div>
-  <div>
-    <label>name: </label>
-    <input [(ngModel)]="hero.name" placeholder="name" />
-  </div>`,
+  <my-hero-detail [hero]="selectedHero"></my-hero-detail>
+  `,
 })
 export class AppComponent  { 
 
   title = 'Tour of Heroes';
   heroes = HEROES;
-  hero: Hero = {
-  id:1,
-  name: 'Windstorm'
-};
+  selectedHero: Hero;
+
+  onSelect(hero: Hero): void {
+    this.selectedHero = hero;
+  }
 }
